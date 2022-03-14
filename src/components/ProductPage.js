@@ -1,6 +1,7 @@
 import Header from "./Header";
 import OrderList from "./OrderList";
 import React from "react";
+import ProductList from "./ProductList";
 
 function ProductPage() {
     return (
@@ -12,7 +13,7 @@ function ProductPage() {
             </h2>
             <br/>
             <br/>
-            <OrderList/>
+            <ProductList/>
         </div>
     );
 }

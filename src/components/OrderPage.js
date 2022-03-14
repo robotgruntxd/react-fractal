@@ -17,7 +17,7 @@ function OrderPage()
             <br/>
             <br/>
             <div>
-                <Button variant="primary"as={Link} to="orderadd">create order</Button>
+                <Button variant="primary"as={Link} to="/orderadd">create order</Button>
             </div>
             <br/>
             <OrderList/>

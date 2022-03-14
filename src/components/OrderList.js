@@ -1,25 +1,24 @@
 import React from 'react';
-
 import axios from 'axios';
 import Table from "react-bootstrap/Table";
 
-export default class OrderList extends React.Component {
+export default class OrderList extends React.Component
+{
     state = {
         orders: []
     }
-
-    componentDidMount() {
+    componentDidMount()
+    {
         axios.get(`http://localhost:8080/order`)
-            .then(res => {
+            .then(res =>
+            {
                 const orders = res.data;
-                this.setState({ orders });
+                this.setState({orders});
             })
     }
-
-    render() {
+    render()
+    {
         return (
-
-
             <Table striped bordered hover>
                 <thead>
                 <tr>
@@ -33,22 +32,19 @@ export default class OrderList extends React.Component {
                 </thead>
                 <tbody>
 
+                {this.state.orders.map(order =>
+                    <tr key={order.id}>
 
-                    { this.state.orders.map(order =>
-                        <tr key={order.id}>
+                        <td>{order.number}</td>
                         <td>{order.consumer}</td>
-                        <td>{order.id}</td>
-                        <td>Mark</td>
-                        <td>Mark</td>
-                        <td>Mark</td>
+                        <td>{order.status}</td>
+                        <td>{order.date}</td>
+                        <td>{order.total}</td>
                         <td>edit</td>
-                        </tr>)}
-
+                    </tr>)}
 
                 </tbody>
             </Table>
-
-
         )
     }
 }
