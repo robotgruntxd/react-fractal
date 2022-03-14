@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import Table from "react-bootstrap/Table";
+import * as Constants from "./Constants";
 
 export default class ProductList extends React.Component
 {
@@ -9,7 +10,7 @@ export default class ProductList extends React.Component
   }
   componentDidMount()
   {
-    axios.get(`http://localhost:8080/product`)
+    axios.get(Constants.HOST_URL + `/product`)
       .then(res =>
       {
         const products = res.data;

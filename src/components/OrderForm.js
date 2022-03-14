@@ -6,6 +6,8 @@ import axios from "axios";
 import data from "bootstrap/js/src/dom/data";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+import Container from "react-bootstrap/Container";
+import * as Constants from "./Constants";
 
 const OrderForm = () =>
 {
@@ -50,8 +52,12 @@ const OrderForm = () =>
   }
   const sendOrder = () =>
   {
+    if(!order.consumer)  {
+      alert("Fill Consumer");
+      return;
+    }
     order.details = details
-    axios.post('http://localhost:8080/order/save', order)
+    axios.post(Constants.HOST_URL +'/order/save', order)
       .then(response =>
       {
       });
@@ -59,7 +65,7 @@ const OrderForm = () =>
   //avoid empty products in db to prevent infinite loop
   if (!products.length)
   {
-    axios.get(`http://localhost:8080/product`)
+    axios.get( Constants.HOST_URL+`/product`)
       .then(res =>
       {
         setProducts(res.data)
@@ -140,19 +146,28 @@ const OrderForm = () =>
           Add item+
         </Button>
       </Form>
+      <Container fluid={true} className="g-0">
+        <h3>Sub total</h3>
 
-      <h3>Sub total</h3>
-      <div>{subTotal()}</div>
-      <Form.Group className="mb-3" >
-      <Button variant="success" type="submit" onClick={sendOrder}>
-        Complete Order
-      </Button>
-      </Form.Group>
-      <Form.Group className="mb-3" >
-      <Button variant="danger" type="submit" >
-        Reject Order
-      </Button>
-      </Form.Group>
+
+        <div>{subTotal()}</div>
+        <h3>Taxes</h3>
+
+        <h4>Total city tax { (subTotal()*.1).toFixed(2)}</h4>
+        <h4>Total County tax {(subTotal()*.055).toFixed(2)}</h4>
+        <h4>Total state tax {(subTotal()*.0924).toFixed(2)}</h4>
+        <h4>Total federal tax {(subTotal()*.0249).toFixed(2)}</h4>
+
+        <h3>Total taxes {(subTotal()*.2723).toFixed(2)}</h3>
+        <h3>Total {(subTotal()*1.2723).toFixed(2)}</h3>
+      </Container>
+
+
+      <div>
+        <Button  variant="success" type="submit" onClick={sendOrder}>Complete Order</Button>{' '}
+        <Button variant="danger">Reject Order</Button>{' '}
+      </div>
+
     </div>
   );
 }

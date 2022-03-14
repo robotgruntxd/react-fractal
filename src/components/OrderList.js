@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import Table from "react-bootstrap/Table";
+import * as Constants from "./Constants";
+
 
 export default class OrderList extends React.Component
 {
@@ -9,7 +11,7 @@ export default class OrderList extends React.Component
     }
     componentDidMount()
     {
-        axios.get(`http://localhost:8080/order`)
+        axios.get(Constants.HOST_URL + `/order`)
             .then(res =>
             {
                 const orders = res.data;
